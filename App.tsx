@@ -21,7 +21,7 @@ import BookingConfirm from './src/screens/stackScreens/bookingConfirm';
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from './src/screens/drawerScreens/profileScreen';
 import Notification from './src/screens/drawerScreens/NotificationScreen';
-import CustomDrawerComponent from './src/screens/drawerScreens/customDrawerComponent';
+import CustomDrawerComponent from './src/screens/drawerScreens/CustomDrawerComponent';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 

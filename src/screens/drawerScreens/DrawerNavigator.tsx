@@ -1,7 +1,7 @@
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
 import ProfileScreen from './profileScreen';
 import NotificationScreen from './NotificationScreen';
-import CustomDrawerComponent from './customDrawerComponent';
+import CustomDrawerComponent from './CustomDrawerComponent';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Drawer = createDrawerNavigator();
