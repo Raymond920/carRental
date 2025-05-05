@@ -1,6 +1,6 @@
 import { initializeApp, getApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDoc, getDocs, doc, updateDoc } from '@react-native-firebase/firestore';
-import { Booking, Car } from './Types';
+import { Booking, Car } from '../types/Types';
 import { formatDateTime, parseDateTime } from './TimeFormating';
 
 const firestoreDB = getFirestore();
@@ -58,8 +58,12 @@ export const changeAvailability = async (carID: string, start_date: string, end_
         // get current car data
         const carData = await getDoc(carSelected);
 
-        if (carData.exists) {
+        if (carData.exists()) {
             const available_date = parseDateTime(end_date);
+            if (!available_date) {
+                console.error('Failed to parse end_date:', end_date);
+                return;
+            }
             available_date.setDate(available_date.getDate() + 1);
             available_date.setHours(0, 0, 0, 0);
             await updateDoc(carSelected, {
@@ -82,7 +86,7 @@ export const getCar = async (carID: string) => {
     try {
         const carSelected = doc(carsCollection, carID);
         const carData = await getDoc(carSelected);
-        if (carData.exists) {
+        if (carData.exists()) {
             const car = carData.data() as Car;
             console.log("Car id: " + carID + " is found");
             return car;

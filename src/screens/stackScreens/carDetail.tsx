@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { ReturnButton } from '../UI';
+import { ReturnButton } from '@/components/UI';
 
 // use Dimensions to get the height of screen
 const { height } = Dimensions.get('window');

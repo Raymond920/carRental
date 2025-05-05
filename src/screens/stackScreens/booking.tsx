@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableNativeFeedback, StyleSheet, TouchableOpacity, Platform, ScrollView, Dimensions, Alert, Image } from 'react-native';
-import { DisplayWithLabel, InputWithLabel, ReturnButton } from '../UI';
-import { useUser } from '../UserContext';
+import { DisplayWithLabel, InputWithLabel, ReturnButton } from '@/components/UI';
+import { useUser } from '../../context/UserContext';
 import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import { uploadBooking, getLatestBooking } from '../FirebaseActions';
-import { Booking } from '../Types';
-import { formatDate, formatDateTime } from '../TimeFormating';
+import { uploadBooking, getLatestBooking } from '../../utils/FirebaseActions';
+import { Booking } from '../../types/Types';
+import { formatDate, formatDateTime } from '../../utils/TimeFormating';
 
 const paymentMethods = [
-    { name: 'FPX', icon: require('../images/fpx.png') },
-    { name: 'Touch \'n Go', icon: require('../images/tng.png') },
-    { name: 'GrabPay', icon: require('../images/grabpay.png') },
-    { name: 'DuitNow', icon: require('../images/duitnow.png') },
+    { name: 'FPX', icon: require('../../assets/images/fpx.png') },
+    { name: 'Touch \'n Go', icon: require('../../assets/images/tng.png') },
+    { name: 'GrabPay', icon: require('../../assets/images/grabpay.png') },
+    { name: 'DuitNow', icon: require('../../assets/images/duitnow.png') },
 ];
 
 const DateSelectorCard = ({ label, date, minDate, onSelectDate }: { label: string; date: Date; minDate: Date; onSelectDate: (newDate: Date) => void }) => {
@@ -123,7 +123,7 @@ const BookingScreen = ({ route, navigation }: any) => {
             }
             if (await uploadBooking(booking)) {
                 const bookingDetail = await getLatestBooking(user ? user.id : '');
-                if (bookingDetail){
+                if (bookingDetail) {
                     navigation.navigate('BookingConfirm', { bookingID: bookingDetail.booking_id, bookingData: bookingDetail.bookingData });
                 }
             } else {

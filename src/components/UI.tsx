@@ -1,7 +1,7 @@
 // UI.tsx
 import React from 'react';
 import { Text, View, TouchableNativeFeedback, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
-import { Car, RootStackParamList } from './Types';
+import { Car, RootStackParamList } from '@/types/Types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';

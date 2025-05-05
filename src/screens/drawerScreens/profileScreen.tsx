@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { DrawerParamList } from '../Types';
+import { DrawerParamList } from '../../types/Types';
 
 const App = () => {
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamList>>();

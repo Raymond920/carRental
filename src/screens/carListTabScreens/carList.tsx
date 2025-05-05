@@ -5,12 +5,12 @@ let SQLite = require('react-native-sqlite-storage');
 // import firestore from '@react-native-firebase/firestore';
 import { getFirestore, collection, query, where, getDocs } from '@react-native-firebase/firestore';
 import { Double } from 'react-native/Libraries/Types/CodegenTypes';
-import { CarCard } from '../UI';
-import { Car } from '../Types';
+import { CarCard } from '@/components/UI';
+import { Car } from '../../types/Types';
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { DrawerParamList } from '../Types';
+import { DrawerParamList } from '../../types/Types';
 
 
 const db = SQLite.openDatabase({ name: 'carRental.db', location: 'default' });

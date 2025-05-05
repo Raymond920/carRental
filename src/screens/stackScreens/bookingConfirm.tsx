@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableNativeFeedback, Button, TouchableOpacity, ScrollView, StyleSheet, BackHandler } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { DisplayWithLabel } from '../UI';
-import { getCar } from '../FirebaseActions';
-import { Car } from '../Types';
+import { DisplayWithLabel } from '@/components/UI';
+import { getCar } from '../../utils/FirebaseActions';
+import { Car } from '../../types/Types';
 
 
 const BookingConfirmPage = ({ route, navigation }: any) => {

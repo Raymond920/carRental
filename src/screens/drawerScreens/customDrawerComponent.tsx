@@ -10,10 +10,10 @@ const CustomDrawerComponent = ( props: any ) => {
             {...props}
             contentContainerStyle={{backgroundColor: '#8200d6'}}>
             <ImageBackground
-              source={require('../images/background.jpg')}
+              source={require('../../assets/images/background.jpg')}
               style={{padding: 20}}>
               <Image
-                source={require('../images/profilePic.jpg')}
+                source={require('../../assets/images/profilePic.jpg')}
                 style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10}}
               />
               <Text
