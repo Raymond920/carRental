@@ -108,7 +108,7 @@ const BookingScreen = ({ route, navigation }: any) => {
 
             const booking: Booking = {
                 car_id: car.id,
-                user_id: user.id,
+                user_id: user ? user.id : '',
                 start_date: formatDateTime(startDate),
                 end_date: formatDateTime(endDate),
                 booking_date: formatDateTime(new Date()),
@@ -122,7 +122,7 @@ const BookingScreen = ({ route, navigation }: any) => {
                 }
             }
             if (await uploadBooking(booking)) {
-                const bookingDetail = await getLatestBooking(user.id);
+                const bookingDetail = await getLatestBooking(user ? user.id : '');
                 if (bookingDetail){
                     navigation.navigate('BookingConfirm', { bookingID: bookingDetail.booking_id, bookingData: bookingDetail.bookingData });
                 }
