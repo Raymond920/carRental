@@ -13,8 +13,8 @@ import suvList from './src/screens/carListTabScreens/suvList';
 import luxuryList from './src/screens/carListTabScreens/luxuryList';
 
 // import stack screens
-import home from './src/screens/stackScreens/homeScreen';
-import carDetail from './src/screens/stackScreens/carDetail';
+import home from './src/screens/stackScreens/HomeScreen';
+import carDetail from './src/screens/stackScreens/CarDetail';
 import Booking from './src/screens/stackScreens/booking';
 import BookingConfirm from './src/screens/stackScreens/bookingConfirm';
 
