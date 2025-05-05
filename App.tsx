@@ -23,7 +23,10 @@ import Profile from './src/screens/drawerScreens/profileScreen';
 import Notification from './src/screens/drawerScreens/NotificationScreen';
 import CustomDrawerComponent from './src/screens/drawerScreens/CustomDrawerComponent';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import LoginScreen from '@/screens/stackScreens/LoginScreen';
 
+import { useUser } from './src/context/UserContext';
+import RegisterScreen from '@/screens/stackScreens/RegisterScreen';
 
 LogBox.ignoreLogs([
     'EventEmitter.removeListener',
@@ -74,6 +77,8 @@ const MainStack = () => (
     // change initial route to home after booking confirm page done
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
         <Stack.Screen name="Home" component={home} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="CarTabs" component={CarTypeBottomTab} />
         <Stack.Screen name="CarDetail" component={carDetail} />
         <Stack.Screen name="Booking" component={Booking} />
@@ -82,6 +87,8 @@ const MainStack = () => (
 );
 
 const App = () => {
+    const { user } = useUser();
+
     return (
         <UserProvider>
             <NavigationContainer>
@@ -99,9 +106,9 @@ const App = () => {
                                 <Ionicons name="home-outline" size={20} color={color} />
                             ),
                             drawerLabelStyle: { fontSize: 20 },
-                        }} 
+                        }}
                     />
-                    <Drawer.Screen
+                    {user ? <Drawer.Screen
                         name="Profile"
                         component={Profile}
                         options={{
@@ -110,7 +117,15 @@ const App = () => {
                             ),
                             drawerLabelStyle: { fontSize: 20 },
                         }}
-                    />
+                    /> : <Drawer.Screen name="Login"
+                        component={LoginScreen}
+                        options={{
+                            drawerIcon: ({ color }) => (
+                                <Ionicons name="home-outline" size={20} color={color} />
+                            ),
+                            drawerLabelStyle: { fontSize: 20 },
+                        }}
+                    />}
                     <Drawer.Screen
                         name="Notification"
                         component={Notification}
