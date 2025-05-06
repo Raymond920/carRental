@@ -2,14 +2,6 @@
 
 This is a Flask-based authentication service for the Car Rental mobile application. It provides user registration, login functionality, and user profile retrieval through a RESTful API.
 
-## Features
-
-- User registration with email, password, name, IC number, and phone number
-- User login with email and password
-- JWT-based authentication
-- User profile retrieval
-- SQLite database for user storage
-
 ## Setup and Installation
 
 ### Prerequisites
@@ -24,12 +16,17 @@ This is a Flask-based authentication service for the Car Rental mobile applicati
 cd auth-service
 ```
 
-2. Install the required dependencies:
+2. Install the poetry dependency manager
+```bash
+pip install poetry
+```
+
+3. Install the required dependencies:
 ```bash
 poetry install
 ```
 
-3. Run the server:
+4. Run the server:
 ```bash
 poetry run python server.py
 ```
