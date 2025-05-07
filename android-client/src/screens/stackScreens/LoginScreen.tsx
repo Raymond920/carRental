@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { useUser } from '../../context/UserContext';
 import LinearGradient from 'react-native-linear-gradient';
-import { FLASK_API } from '@/utils/Config';
+import config from '@/config.json';
 
 const { height, width } = Dimensions.get('window');
 
@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }: any) => {
         }
         setLoading(true);
         try {
-            const response = await fetch(`${FLASK_API}/login`, {
+            const response = await fetch(`${config.FLASK_API}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),

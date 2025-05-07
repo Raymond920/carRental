@@ -7,8 +7,6 @@ const firestoreDB = getFirestore();
 const bookingsCollection = collection(firestoreDB, 'bookings');
 const carsCollection = collection(firestoreDB, 'cars');
 
-
-
 // this function is to upload user booking
 export const uploadBooking = async (bookingData: Booking) => {
     try {
