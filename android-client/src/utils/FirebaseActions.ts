@@ -118,7 +118,9 @@ export const addCarListing = async (car: CarListing) => {
         console.log('[FirebaseActions] Attempting addDoc to carsCollection...');
         const carRef = await addDoc(carsCollection, car);
         console.log('[FirebaseActions] addDoc successful. Car listing added, ID:', carRef.id);
+        return true;
     } catch (error) {
         console.error('[FirebaseActions] Error in addDoc during addCarListing:', error);
+        return false;
     }
 }
