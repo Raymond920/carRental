@@ -4,10 +4,11 @@ export interface Car {
     price: number;
     image?: string;
     category: string;
-    availability: number;
+    availability: boolean;
     description?: string;
     fuel_type?: string;
     mileage?: number;
+    owner_name: string;
 }
 
 export interface User {
@@ -45,6 +46,7 @@ export type RootStackParamList = {
     Booking: { car: Car };
     DrawerMenu: undefined;
     BookingConfirm: { bookingID: string, bookingData: Booking };
+    ListCarScreen: undefined;
 };
 
 export type DrawerParamList = {

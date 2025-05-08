@@ -100,7 +100,7 @@ def token_required(f):
         try:
             data = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             current_user = {
-                'id': data['id'],
+                'uuid': data['uuid'],
                 'email': data['email'],
                 'name': data['name'],
                 'ic_number': data['ic_number'],
@@ -181,7 +181,6 @@ def profile(current_user):
 @app.route('/logout', methods=['POST'])
 @token_required
 def logout(current_user):
-    # In a real application, you would invalidate the token here (e.g., by adding it to a blacklist)
     return jsonify({'message': 'Logged out successfully'}), 200
 
 if __name__ == '__main__':

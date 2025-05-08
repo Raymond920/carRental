@@ -12,6 +12,7 @@ import {
     Platform,
     StatusBar
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUser } from '../../context/UserContext';
 import LinearGradient from 'react-native-linear-gradient';
 import config from '@/config.json';
@@ -38,6 +39,7 @@ const LoginScreen = ({ navigation }: any) => {
             });
             const data = await response.json();
             if (response.ok) {
+                await AsyncStorage.setItem('userToken', data.token);
                 setUser({
                     id: data.user.uuid,
                     name: data.user.name,
