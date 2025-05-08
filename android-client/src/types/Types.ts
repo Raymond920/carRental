@@ -10,6 +10,14 @@ export interface Car {
     mileage?: number;
 }
 
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    ic_number: string;
+    phone_number: string;
+};
+
 export type Renter = {
     name: string;
     email: string;
@@ -34,13 +42,14 @@ export type RootStackParamList = {
     Register: undefined;
     CarTabs: undefined;
     CarDetail: { car: Car };
-    Booking: {car: Car}; 
+    Booking: { car: Car };
     DrawerMenu: undefined;
-    BookingConfirm: {bookingID: string, bookingData: Booking};
+    BookingConfirm: { bookingID: string, bookingData: Booking };
 };
 
 export type DrawerParamList = {
     Profile: undefined;
     Notification: undefined;
     MainApp: undefined;
-  };
+    EditProfile: undefined;
+};

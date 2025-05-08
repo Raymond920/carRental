@@ -39,11 +39,11 @@ const LoginScreen = ({ navigation }: any) => {
             const data = await response.json();
             if (response.ok) {
                 setUser({
-                    id: data.user.id.toString(),
+                    id: data.user.uuid,
                     name: data.user.name,
                     email: data.user.email,
-                    ic: '', // Not returned by backend, set as needed
-                    phone_no: '', // Not returned by backend, set as needed
+                    ic_number: data.user.ic,
+                    phone_number: data.user.phone_no,
                 });
                 Alert.alert('Success', 'Login successful!');
                 navigation.navigate('Home');

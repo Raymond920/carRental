@@ -67,7 +67,7 @@ const ProfileScreen = () => {
         color="#a80000"
         onPressItem={name => {
           if (name === 'edit') {
-            navigation.navigate('editProfile')
+            navigation.navigate('EditProfile')
           }
         }}
       />

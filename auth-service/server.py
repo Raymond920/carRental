@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import jwt
 import datetime
+import uuid
 from functools import wraps
 
 app = Flask(__name__)
@@ -21,6 +22,7 @@ def init_db():
         conn.execute('''
             CREATE TABLE users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                uuid TEXT NOT NULL UNIQUE,
                 email TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL,
                 name TEXT NOT NULL,
@@ -46,7 +48,9 @@ def token_required(f):
             current_user = {
                 'id': data['id'],
                 'email': data['email'],
-                'name': data['name']
+                'name': data['name'],
+                'ic_number': data['ic_number'],
+                'phone_number': data['phone_number']
             }
         except jwt.ExpiredSignatureError:
             return jsonify({'error': 'Token has expired!'}), 401
@@ -55,20 +59,28 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     return decorated
 
+@app.route('/')
+def index():
+    return jsonify({'message': 'Welcome to the Auth Service'}), 200
+
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
+
     email = data.get('email')
     password = data.get('password')
     name = data.get('name')
     ic_number = data.get('ic_number')
     phone_number = data.get('phone_number')
+
     if not email or not password or not name or not ic_number or not phone_number:
         return jsonify({'error': 'All fields are required'}), 400
+
     hashed_password = generate_password_hash(password)
+    user_uuid = str(uuid.uuid4())
     try:
         conn = get_db()
-        conn.execute('INSERT INTO users (email, password, name, ic_number, phone_number) VALUES (?, ?, ?, ?, ?)', (email, hashed_password, name, ic_number, phone_number))
+        conn.execute('INSERT INTO users (uuid, email, password, name, ic_number, phone_number) VALUES (?, ?, ?, ?, ?, ?)', (user_uuid, email, hashed_password, name, ic_number, phone_number))
         conn.commit()
         conn.close()
         return jsonify({'message': 'User registered successfully'}), 201
@@ -87,9 +99,11 @@ def login():
     conn.close()
     if user and check_password_hash(user['password'], password):
         payload = {
-            'id': user['id'],
+            'uuid': user['uuid'],
             'email': user['email'],
             'name': user['name'],
+            'ic_number': user['ic_number'],
+            'phone_number': user['phone_number'],
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
@@ -97,7 +111,7 @@ def login():
             'message': 'Login successful',
             'token': token,
             'user': {
-                'id': user['id'],
+                'uuid': user['uuid'],
                 'email': user['email'],
                 'name': user['name'],
             }

@@ -164,7 +164,7 @@ const AppContent = () => {
                     }}
                 />
                 <Drawer.Screen
-                        name="editProfile"
+                        name="EditProfile"
                         component={EditProfile}
                         options={{
                             drawerItemStyle: { display: 'none' }, // Hide from drawer menu
