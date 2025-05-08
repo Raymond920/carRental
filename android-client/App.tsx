@@ -19,7 +19,7 @@ import Booking from './src/screens/stackScreens/booking';
 import BookingConfirm from './src/screens/stackScreens/BookingConfirmation';
 
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
-import Profile from './src/screens/drawerScreens/profileScreen';
+import Profile from './src/screens/drawerScreens/ProfileScreen';
 import Notification from './src/screens/drawerScreens/NotificationScreen';
 import EditProfile from './src/screens/drawerScreens/EditProfile';
 import History from './src/screens/drawerScreens/BookingHistoryScreen';

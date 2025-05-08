@@ -31,7 +31,61 @@ def init_db():
             )
         ''')
         conn.commit()
+        seed_db()
         conn.close()
+
+def seed_db():
+    """Seed the database with mock data for testing and development purposes."""
+    conn = get_db()
+    
+    # Check if there are already users in the database
+    user_count = conn.execute('SELECT COUNT(*) FROM users').fetchone()[0]
+    
+    if user_count == 0:
+        # Sample users data
+        mock_users = [
+            {
+                'uuid': 'c35cddf9-0c8e-4d67-8d1a-20cee277eaf4',
+                'email': 'hussain@example.com',
+                'password': generate_password_hash('password123'),
+                'name': 'Sedan Hussain',
+                'ic_number': '901234-56-7890',
+                'phone_number': '012-3456789'
+            },
+            {
+                'uuid': 'b3c3f337-9c77-4506-aaa6-23a7a412c25a',
+                'email': 'jane@example.com',
+                'password': generate_password_hash('password123'),
+                'name': 'Jane Smith',
+                'ic_number': '890123-45-6789',
+                'phone_number': '019-8765432'
+            },
+            {
+                'uuid': '1cacad86-b5bf-40b2-8050-0a1a062c18d1',
+                'email': 'admin@carental.com',
+                'password': generate_password_hash('admin123'),
+                'name': 'Car Rental',
+                'ic_number': '780912-34-5678',
+                'phone_number': '011-2345678'
+            }
+        ]
+        
+        for user in mock_users:
+            try:
+                conn.execute(
+                    'INSERT INTO users (uuid, email, password, name, ic_number, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
+                    (user['uuid'], user['email'], user['password'], user['name'], user['ic_number'], user['phone_number'])
+                )
+            except sqlite3.IntegrityError:
+                # Skip if user already exists (unlikely but possible with fixed emails)
+                pass
+                
+        conn.commit()
+        print("Database seeded with mock users.")
+    else:
+        print("Database already contains users, skipping seeding.")
+    
+    conn.close()
 
 def token_required(f):
     @wraps(f)
@@ -124,6 +178,13 @@ def login():
 def profile(current_user):
     return jsonify({'user': current_user}), 200
 
+@app.route('/logout', methods=['POST'])
+@token_required
+def logout(current_user):
+    # In a real application, you would invalidate the token here (e.g., by adding it to a blacklist)
+    return jsonify({'message': 'Logged out successfully'}), 200
+
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    seed_db()
+    app.run(debug=True, host='0.0.0.0')
