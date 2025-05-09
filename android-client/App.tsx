@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { NavigationContainer, DefaultTheme as NavLight, DarkTheme as NavDark } from '@react-navigation/native'
-import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LogBox } from 'react-native';
 import { CustomTabBar } from '@/components/UI';
@@ -9,12 +9,12 @@ import { UserProvider, useUser } from './src/context/UserContext';
 import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, MD3DarkTheme as PaperDarkTheme, useTheme } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import car list screens
+// Import car list screens
 import sedanList from './src/screens/carListTabScreens/sedanList';
 import suvList from './src/screens/carListTabScreens/suvList';
 import luxuryList from './src/screens/carListTabScreens/luxuryList';
 
-// import stack screens
+// Import stack screens
 import HomeScreen from './src/screens/stackScreens/HomeScreen';
 import carDetail from './src/screens/stackScreens/CarDetail';
 import Booking from './src/screens/stackScreens/booking';
@@ -33,8 +33,7 @@ import LoginScreen from '@/screens/stackScreens/LoginScreen';
 import RegisterScreen from '@/screens/stackScreens/RegisterScreen';
 import ListCarScreen from '@/screens/stackScreens/CarListingScreen';
 
-// test
-import ChatTest from '@/test/ChatTest';
+import UpdateCarListing from '@/screens/stackScreens/UpdateCarListing';
 
 LogBox.ignoreLogs([
     'EventEmitter.removeListener',
@@ -91,11 +90,7 @@ const CarTypeBottomTab = () => {
 }
 
 const MainStack = () => (
-    // change initial route to home after booking confirm page done
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
-        {/* for testing chat */}
-        <Stack.Screen name="Test" component={ChatTest} />
-
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="ChatList" component={ChatList} />
@@ -106,6 +101,7 @@ const MainStack = () => (
         <Stack.Screen name="Booking" component={Booking} />
         <Stack.Screen name="BookingConfirm" component={BookingConfirm} />
         <Stack.Screen name="ListCarScreen" component={ListCarScreen} />
+        <Stack.Screen name="UpdateCar" component={UpdateCarListing} />
     </Stack.Navigator>
 );
 
