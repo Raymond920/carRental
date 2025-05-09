@@ -2,12 +2,17 @@ import React from 'react'
 import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { ReturnButton } from '@/components/UI';
+import { useUser } from '@/context/UserContext';
+import { deleteCarListing } from '@/utils/FirebaseActions';
 
 // use Dimensions to get the height of screen
 const { height } = Dimensions.get('window');
 
 const CarDetail = ({ route, navigation }: any) => {
     const { car } = route.params;
+    const { user } = useUser();
+    const isOwner = user?.uuid === car.owner_uuid;
+
     return (
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.9)' }}>
             {/* return button */}
@@ -50,6 +55,19 @@ const CarDetail = ({ route, navigation }: any) => {
                 <Text style={{ marginTop: 5, fontSize: 14, color: 'rgba(0,0,0,0.5)', }}>
                     Owner: {car.owner_name}
                 </Text>
+
+                <View>
+                    <TouchableNativeFeedback onPress={() => { }}>
+                        <Text>
+                            Update
+                        </Text>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={() => { deleteCarListing(car.id) }}>
+                        <Text>
+                            Delete
+                        </Text>
+                    </TouchableNativeFeedback>
+                </View>
 
                 {/* vertical scrollable */}
                 <ScrollView
