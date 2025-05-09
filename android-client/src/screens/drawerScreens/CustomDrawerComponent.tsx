@@ -4,11 +4,11 @@ import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "
 import { TouchableRipple, Switch, useTheme } from 'react-native-paper';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useUser } from '@/context/UserContext';
-
 const CustomDrawerComponent = (props: any) => {
-  const { user } = useUser();
+  const { user, logout } = useUser();
   const { isDarkTheme, toggleTheme } = props;
   const theme = useTheme();
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <DrawerContentScrollView
@@ -51,7 +51,7 @@ const CustomDrawerComponent = (props: any) => {
       </DrawerContentScrollView>
 
       {user && <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-        <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => { logout(); props.navigation.navigate('Home') }} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Ionicons name="exit-outline" size={22} color={theme.colors.onBackground} />
             <Text

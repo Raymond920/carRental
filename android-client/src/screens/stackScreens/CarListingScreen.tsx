@@ -79,9 +79,6 @@ const ListCarScreen = ({ navigation }: any) => {
                 availability: 1,
             };
 
-            // Log the data being sent
-            console.log('Attempting to list car with data:', JSON.stringify(carData, null, 2));
-
             const success = await addCarListing(carData);
 
             if (success) {

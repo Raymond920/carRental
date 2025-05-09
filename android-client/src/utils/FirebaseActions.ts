@@ -1,7 +1,6 @@
 import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDoc, getDocs, doc, updateDoc } from '@react-native-firebase/firestore';
 import { Booking, Car } from '../types/Types';
 import { formatDateTime, parseDateTime } from './TimeFormating';
-import firestore from '@react-native-firebase/firestore';
 
 const firestoreDB = getFirestore();
 const bookingsCollection = collection(firestoreDB, 'bookings');
@@ -16,7 +15,6 @@ export const uploadBooking = async (bookingData: Booking) => {
             start_date: bookingData.start_date,
             end_date: bookingData.end_date,
         });
-        console.log(bookingData.payment);
         console.log('Booking uploaded successfully, ID:', bookingRef.id);
         changeAvailability(bookingData.car_id, bookingData.start_date, bookingData.end_date, false);
         return true;
@@ -127,8 +125,24 @@ export const addCarListing = async (car: CarListing) => {
     }
 }
 
+/**
+ * Fetches the booking history for a specific user from Firestore.
+ * 
+ * @param user_uuid - The UUID of the user whose booking history is to be fetched
+ * @returns A promise that resolves to an array of Booking objects with their IDs
+ * @throws Will throw an error if the Firestore fetch operation fails
+ * 
+ * @example
+ * ```typescript
+ * try {
+ *   const bookingHistory = await fetchBookingHistory('user-uuid');
+ *   console.log(bookingHistory);
+ * } catch (error) {
+ *   console.error('Failed to fetch booking history:', error);
+ * }
+ * ```
+ */
 type BookingWithId = Booking & { id: string };
-
 export const fetchBookingHistory = async (user_uuid: string): Promise<BookingWithId[]> => {
     try {
         // Replace the old namespaced query with the modular API
@@ -151,6 +165,24 @@ export const fetchBookingHistory = async (user_uuid: string): Promise<BookingWit
     }
 };
 
+
+/**
+ * Fetches cars from Firestore database based on the specified category.
+ * 
+ * @param category - The category of cars to fetch (e.g., 'sedan', 'suv', etc.)
+ * @returns A promise that resolves to an array of Car objects
+ * @throws Will throw an error if the Firestore fetch operation fails
+ * 
+ * @example
+ * ```typescript
+ * try {
+ *   const sedanCars = await fetchCars('sedan');
+ *   console.log(sedanCars);
+ * } catch (error) {
+ *   console.error('Failed to fetch cars:', error);
+ * }
+ * ```
+ */
 export const fetchCars = async (category: String): Promise<Car[]> => {
     try {
         const firestoreDB = getFirestore();
