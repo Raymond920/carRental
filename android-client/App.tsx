@@ -61,7 +61,8 @@ const CarTypeBottomTab = () => {
                 headerShown: false,
                 tabBarStyle: {
                     backgroundColor: theme.colors.surface,
-                    borderTopColor: theme.colors.onBackground
+                    borderTopColor: theme.colors.onBackground,
+                    borderTopWidth: 1,
                 },
                 tabBarActiveTintColor: theme.colors.primary,
                 tabBarInactiveTintColor: theme.colors.onBackground

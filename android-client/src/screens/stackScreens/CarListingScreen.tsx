@@ -68,6 +68,7 @@ const ListCarScreen = ({ navigation }: any) => {
         try {
             const carData = {
                 owner_name: user.name,
+                owner_uuid: user.uuid,
                 model,
                 description,
                 price: parsedPrice,

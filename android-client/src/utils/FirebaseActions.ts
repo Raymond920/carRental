@@ -112,6 +112,7 @@ interface CarListing {
     fuel_type?: string;
     mileage?: number;
     owner_name: string;
+    owner_uuid: string;
 }
 
 export const addCarListing = async (car: CarListing) => {
@@ -147,5 +148,34 @@ export const fetchBookingHistory = async (user_uuid: string): Promise<BookingWit
     } catch (error) {
         console.error("Error fetching history:", error);
         return [];
+    }
+};
+
+export const fetchCars = async (category: String): Promise<Car[]> => {
+    try {
+        const firestoreDB = getFirestore();
+        const carsRef = collection(firestoreDB, 'cars');
+        const sedanQuery = query(carsRef, where('category', '==', category));
+        const snapshot = await getDocs(sedanQuery);
+        const carData: Car[] = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                model: data.model as string,
+                price: data.price as number,
+                image: data.image as string | undefined,
+                category: data.category as string,
+                availability: data.availability,
+                description: data.description as string | undefined,
+                fuel_type: data.fuel_type as string | undefined,
+                mileage: data.mileage as number | undefined,
+                owner_name: data.owner_name as string,
+                owner_uuid: data.owner_uuid as string,
+            };
+        });
+        return carData;
+    } catch (error) {
+        console.error('Firestore fetch error:', error);
+        throw error;
     }
 };
