@@ -8,11 +8,13 @@ import config from '@/config.json';
 import { ReturnButton } from '@/components/UI';
 import LinearGradient from 'react-native-linear-gradient';
 
-interface ChatMessage {
+interface Chat {
     chatId: string;
-    senderId: string;
-    message: string;
-    timestamp: string;
+    userId: string;
+    ownerId: string;
+    lastMessage: string;
+    timestamp: number;
+    unreadCount: number;
 }
 
 const ChatList = ({ navigation }: any) => {
@@ -23,13 +25,13 @@ const ChatList = ({ navigation }: any) => {
     useEffect(() => {
         if (user?.id) {
             axios
-                .get(`${config.Websocker_Server}/get_user_chats?user_id=${user.id}`)
+                .get(`${config.WEBSOCKET_SERVER}/get_user_chats?user_id=${user.id}`)
                 .then(async (res) => {
                     const chats = res.data;
 
                     // Extract unique user UUIDs to fetch names
                     const userIds = new Set<string>();
-                    chats.forEach(chat => {
+                    chats.forEach((chat: Chat) => {
                         userIds.add(chat.userId);
                         userIds.add(chat.ownerId);
                     });
@@ -52,7 +54,7 @@ const ChatList = ({ navigation }: any) => {
                     );
 
                     // Attach displayName to each chat
-                    const enrichedChats = chats.map(chat => {
+                    const enrichedChats = chats.map((chat: Chat) => {
                         const otherUserId = chat.ownerId === user.id ? chat.userId : chat.ownerId;
                         return {
                             ...chat,
@@ -101,7 +103,7 @@ const ChatList = ({ navigation }: any) => {
             />
             <FlatList
                 data={chats}
-                keyExtractor={(item) => item.chatId}
+                keyExtractor={(item: Chat) => item.chatId}
                 renderItem={renderItem}
                 style={{
                     marginTop: 50
