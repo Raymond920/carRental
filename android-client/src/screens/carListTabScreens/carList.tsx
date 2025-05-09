@@ -40,7 +40,7 @@ const carList = ({ category }: Props) => {
                     fuel_type TEXT,
                     mileage REAL,
                     owner_name TEXT NOT NULL,
-                    owner_uuid TEXT NOT NULL
+                    owner_uuid TEXT NOT NULL,
                     )`
                 );
             })
@@ -54,9 +54,18 @@ const carList = ({ category }: Props) => {
     const _syncToSQLite = (carData: Car[]) => {
         db.transaction((tx: any) => {
             carData.forEach((car: Car) => {
+                if (!car.owner_uuid || !car.owner_name) {
+                    console.warn(`[syncToSQLite] Skipping car with missing owner info:`, car);
+                    return;
+                }
+
+                console.log(`[syncToSQLite] Inserting car ID: ${car.id}, owner_uuid: ${car.owner_uuid}`);
                 tx.executeSql(
-                    `INSERT OR REPLACE INTO cars (id, model, price, image, category, availability, description, fuel_type, mileage, owner_name, owner_uuid)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    `INSERT OR REPLACE INTO cars (
+                    id, model, price, image, 
+                    category, availability, description, 
+                    fuel_type, mileage, owner_name, owner_uuid) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [
                         car.id,
                         car.model,
@@ -114,9 +123,43 @@ const carList = ({ category }: Props) => {
     };
 
     useEffect(() => {
-        _createCarsTable();
-        _fetchCars();
+        const init = async () => {
+            await new Promise<void>((resolve, reject) => {
+                db.transaction((tx: any) => {
+                    tx.executeSql('DROP TABLE IF EXISTS cars');
+                    tx.executeSql(
+                        `CREATE TABLE IF NOT EXISTS cars (
+                        id TEXT PRIMARY KEY,
+                        model TEXT NOT NULL,
+                        price REAL NOT NULL,
+                        image TEXT,
+                        category TEXT NOT NULL,
+                        availability INTEGER DEFAULT 1,
+                        description TEXT,
+                        fuel_type TEXT,
+                        mileage REAL,
+                        owner_name TEXT NOT NULL,
+                        owner_uuid TEXT NOT NULL
+                    )`,
+                        [],
+                        () => {
+                            console.log('Cars table created');
+                            resolve();
+                        },
+                        (error: any) => {
+                            console.error('Error creating table:', error);
+                            reject(error);
+                        }
+                    );
+                });
+            });
+
+            _fetchCars(); // fetch after table creation
+        };
+
+        init();
     }, []);
+
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>

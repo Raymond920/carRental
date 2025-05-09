@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback, Alert } from 'react-native';
+import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback, Alert, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { ReturnButton } from '@/components/UI';
-import { useUser } from '@/context/UserContext';
 import { deleteCarListing } from '@/utils/FirebaseActions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useUser } from '@/context/UserContext';
 
 // use Dimensions to get the height of screen
 const { height } = Dimensions.get('window');
@@ -12,6 +13,18 @@ const CarDetail = ({ route, navigation }: any) => {
     const { car } = route.params;
     const { user } = useUser();
     const isOwner = user?.uuid === car.owner_uuid;
+
+    const generateChatId = (userId1: string, userId2: string): string => {
+        return [userId1, userId2].sort().join('_');
+    };
+
+    // pass car.owner_uuid to create unique chatId and join user into a chatroom between owner
+    const chatHandling = (owner_id: string, owner_name: string) => {
+        if (user) {
+            const chatId = generateChatId(user.uuid, owner_id);
+            navigation.navigate('Chatroom', { chatId: chatId, ownerId: owner_id, userId: user?.uuid, userName: owner_name })
+        }
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.9)' }}>
@@ -52,18 +65,26 @@ const CarDetail = ({ route, navigation }: any) => {
                 <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#000' }}>
                     {car.model}
                 </Text>
-                <Text style={{ marginTop: 5, fontSize: 14, color: 'rgba(0,0,0,0.5)', }}>
-                    Owner: {car.owner_name}
-                </Text>
+
+                <View style={{ marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 16, color: 'rgba(0,0,0,0.5)', }}>
+                        Owner: {car.owner_name}
+                    </Text>
+
+                    <TouchableOpacity onPress={() => chatHandling(car.owner_uuid, car.owner_name)} style={{ marginLeft: '5%' }}>
+                        <Ionicons name="chatbubble-ellipses" size={28} color={'#00b14f'} />
+                    </TouchableOpacity>
+                </View>
 
                 {/* Update and Delete Buttons */}
                 {isOwner && (
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                    <View style={{ flexDirection: 'row', marginTop: 20, paddingBottom: 20 }}>
                         <TouchableNativeFeedback onPress={() => {
                             navigation.navigate('UpdateCar', { car: car });
                         }}>
                             <View style={{
-                                backgroundColor: 'blue',
+                                backgroundColor: '#1877F2',
+                                marginRight: 10,
                                 paddingVertical: 10,
                                 paddingHorizontal: 20,
                                 borderRadius: 30,
@@ -98,13 +119,14 @@ const CarDetail = ({ route, navigation }: any) => {
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
-                    </View>)
-                }
+                    </View>
+                )}
+                
 
                 {/* vertical scrollable */}
                 <ScrollView
                     contentContainerStyle={{
-                        paddingBottom: height * 0.12
+                        paddingBottom: height * 0.2,
                     }}
                 >
                     {/* car description display */}
