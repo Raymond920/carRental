@@ -1,6 +1,7 @@
 import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDoc, getDocs, doc, updateDoc } from '@react-native-firebase/firestore';
 import { Booking, Car } from '../types/Types';
 import { formatDateTime, parseDateTime } from './TimeFormating';
+import firestore from '@react-native-firebase/firestore';
 
 const firestoreDB = getFirestore();
 const bookingsCollection = collection(firestoreDB, 'bookings');
@@ -124,3 +125,27 @@ export const addCarListing = async (car: CarListing) => {
         return false;
     }
 }
+
+type BookingWithId = Booking & { id: string };
+
+export const fetchBookingHistory = async (user_uuid: string): Promise<BookingWithId[]> => {
+    try {
+        // Replace the old namespaced query with the modular API
+        const bookingsQuery = query(
+            bookingsCollection, // This constant is already defined using the modular API
+            where('user_id', '==', user_uuid),
+            orderBy('booking_date', 'desc')
+        );
+        const snapshot = await getDocs(bookingsQuery);
+
+        const bookingData = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        })) as BookingWithId[];
+
+        return bookingData;
+    } catch (error) {
+        console.error("Error fetching history:", error);
+        return [];
+    }
+};

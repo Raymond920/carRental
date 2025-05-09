@@ -12,7 +12,7 @@ export interface Car {
 }
 
 export interface User {
-    id: string;
+    uuid: string;
     name: string;
     email: string;
     ic_number: string;

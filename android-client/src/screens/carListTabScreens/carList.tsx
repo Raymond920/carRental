@@ -151,7 +151,7 @@ const carList = ({ category }: Props) => {
         <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={{ padding: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: theme.colors.background }}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Ionicons name="menu-outline" size={28} color={theme.colors.text} />
+                    <Ionicons name="menu-outline" size={28} color={theme.colors.onBackground} />
                 </TouchableOpacity>
             </View>
             <FlatList
