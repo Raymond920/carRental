@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native';
 import { NavigationContainer, DefaultTheme as NavLight, DarkTheme as NavDark } from '@react-navigation/native'
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -24,7 +23,6 @@ import Chatroom from '@/screens/stackScreens/Chatroom';
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from './src/screens/drawerScreens/ProfileScreen';
-import EditProfile from './src/screens/drawerScreens/EditProfile';
 import CustomDrawerComponent from './src/screens/drawerScreens/CustomDrawerComponent';
 import ChatList from '@/screens/stackScreens/ChatList';
 
@@ -240,14 +238,6 @@ const AppContent = () => {
                                 }}
                             />
                         )}
-
-                    <Drawer.Screen
-                        name="EditProfile"
-                        component={EditProfile}
-                        options={{
-                            drawerItemStyle: { display: 'none' }, // Hide from drawer menu
-                        }}
-                    />
                 </Drawer.Navigator>
             </NavigationContainer>
         </PaperProvider>

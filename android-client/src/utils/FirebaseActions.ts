@@ -288,3 +288,23 @@ export const deleteCarListing = async (carId: string) => {
         return false;
     }
 }
+
+
+/**
+ * Updates a car listing document in Firebase Firestore.
+ * @param carId - The unique identifier of the car listing to update
+ * @param updatedData - Partial Car object containing only the fields that need to be updated
+ * @returns A Promise that resolves to true if update was successful, false otherwise
+ * @throws Will not throw errors as they are caught and returned as false
+ */
+export const updateCarListing = async (carId: string, updatedData: Partial<Car>) => {
+    try {
+        const carRef = doc(carsCollection, carId);
+        await updateDoc(carRef, updatedData);
+        console.log('Car listing updated successfully');
+        return true;
+    } catch (error) {
+        console.error('Error updating car listing:', error);
+        return false;
+    }
+}

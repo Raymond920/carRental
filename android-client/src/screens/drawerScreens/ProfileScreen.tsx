@@ -53,16 +53,6 @@ const ProfileScreen = () => {
     { key: 'icNumber', icon: 'id-card-o', label: 'IC Number', value: user?.ic_number }
   ];
 
-  const actions = [
-    {
-      text: 'Edit Profile',
-      icon: require('../../assets/images/edit_icon.jpg'), // Ensure this path is correct
-      name: 'edit',
-      position: 1,
-      color: '#000000', // Changed to black for consistency
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -115,19 +105,6 @@ const ProfileScreen = () => {
           <BookingHistory />
         </View>
       </ScrollView>
-
-      <FloatingAction
-        actions={actions}
-        color="#000000" // Main button color
-        onPressItem={name => {
-          if (name === 'edit') {
-            navigation.navigate('EditProfile');
-          }
-        }}
-        floatingIcon={<Ionicons name="pencil-outline" size={24} color="#fff" />}
-        iconHeight={24}
-        iconWidth={24}
-      />
     </View>
   );
 }

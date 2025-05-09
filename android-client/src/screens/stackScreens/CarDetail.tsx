@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback } from 'react-native';
+import { Text, View, Image, Dimensions, StyleSheet, ScrollView, TouchableNativeFeedback, Alert } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { ReturnButton } from '@/components/UI';
 import { useUser } from '@/context/UserContext';
@@ -56,18 +56,50 @@ const CarDetail = ({ route, navigation }: any) => {
                     Owner: {car.owner_name}
                 </Text>
 
-                <View>
-                    <TouchableNativeFeedback onPress={() => { }}>
-                        <Text>
-                            Update
-                        </Text>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback onPress={() => { deleteCarListing(car.id) }}>
-                        <Text>
-                            Delete
-                        </Text>
-                    </TouchableNativeFeedback>
-                </View>
+                {/* Update and Delete Buttons */}
+                {isOwner && (
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                        <TouchableNativeFeedback onPress={() => {
+                            navigation.navigate('UpdateCar', { car: car });
+                        }}>
+                            <View style={{
+                                backgroundColor: 'blue',
+                                paddingVertical: 10,
+                                paddingHorizontal: 20,
+                                borderRadius: 30,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                elevation: 5,
+                            }}>
+                                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
+                                    Update
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                        <TouchableNativeFeedback onPress={async () => {
+                            if (await deleteCarListing(car.id)) {
+                                Alert.alert('Success', 'Car listing deleted successfully');
+                                navigation.navigate('Home');
+                            } else {
+                                Alert.alert('Error', 'Failed to delete car listing');
+                            }
+                        }}>
+                            <View style={{
+                                backgroundColor: 'red',
+                                paddingVertical: 10,
+                                paddingHorizontal: 20,
+                                borderRadius: 30,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                elevation: 5,
+                            }}>
+                                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
+                                    Delete
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>)
+                }
 
                 {/* vertical scrollable */}
                 <ScrollView
@@ -113,12 +145,12 @@ const CarDetail = ({ route, navigation }: any) => {
                         </View>
                     </ScrollView>
                 </ScrollView>
-            </View>
+            </View >
 
             {/* Booking price and button */}
-            <View style={styles.bookingButtonContainer}>
+            < View style={styles.bookingButtonContainer} >
                 {/* price */}
-                <View style={{
+                < View style={{
                     width: '40%',
                     marginLeft: 14,
                     marginRight: 8
@@ -141,9 +173,9 @@ const CarDetail = ({ route, navigation }: any) => {
                             / day
                         </Text>
                     </View>
-                </View>
+                </View >
                 {/* booking button */}
-                <View style={{
+                < View style={{
                     width: '48%',
                 }}>
                     <TouchableNativeFeedback
@@ -157,9 +189,9 @@ const CarDetail = ({ route, navigation }: any) => {
                             </Text>
                         </View>
                     </TouchableNativeFeedback>
-                </View>
-            </View>
-        </View>
+                </View >
+            </View >
+        </View >
     );
 }
 
