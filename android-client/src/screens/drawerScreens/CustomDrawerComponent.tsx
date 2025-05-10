@@ -1,9 +1,9 @@
-import React from 'react'
-import { Text, View, Image, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
-import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
-import { TouchableRipple, Switch, useTheme } from 'react-native-paper';
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { useUser } from '@/context/UserContext';
+import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
+import React from 'react';
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Switch, TouchableRipple, useTheme } from 'react-native-paper';
+import Ionicons from "react-native-vector-icons/Ionicons";
 const CustomDrawerComponent = (props: any) => {
   const { user, logout } = useUser();
   const { isDarkTheme, toggleTheme } = props;
