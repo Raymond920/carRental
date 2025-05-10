@@ -51,7 +51,12 @@ const CustomDrawerComponent = (props: any) => {
       </DrawerContentScrollView>
 
       {user && <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-        <TouchableOpacity onPress={() => { logout(); props.navigation.navigate('Home') }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => {
+          logout();
+          props.navigation.navigate('Home');
+        }}
+          style={{ paddingVertical: 15 }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Ionicons name="exit-outline" size={22} color={theme.colors.onBackground} />
             <Text
