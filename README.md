@@ -8,6 +8,7 @@ This project consists of the following main components:
 
 - `android-client/`: React Native mobile application
 - `auth-service/`: Flask-based authentication backend
+- `chat-websocket/`: 
 
 ## Features
 
@@ -94,12 +95,12 @@ The authentication server will start on port 5000: http://localhost:5000
 
 1. Navigate to the Chat WebSocket directory:
 ```bash
-cd chat-ws
+cd chat-websocket
 ```
 
 2. Run the websocket server:
 ```bash
-python chatWebSocket.py
+poetry run python websocket.py
 ```
 
 The WebSocket server will start on port 5001: http://localhost:5001
