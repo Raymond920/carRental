@@ -64,7 +64,6 @@ This project consists of the following main components:
 | :--------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
 | ![Delete Car](https://github.com/user-attachments/assets/e86e8888-e2bf-464b-b4a9-9c57d4cae370) | ![Logout](https://github.com/user-attachments/assets/38ffd208-4bdd-4c54-afc0-8bc846fc66e7) |
 
-
 ## Getting Started
 
 ### Setting Up the React Native Client
