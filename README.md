@@ -213,7 +213,9 @@ Make sure your `tsconfig.json` has JSON module resolution enabled:
 
 ## 📜 Contributors
 
-See the full list of contributors in [CONTRIBUTORS.md](./CONTRIBUTORS.md).
+<a href="https://github.com/Raymond920/carRental/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Raymond920/carRental" />
+</a>
 
 ## License
 
