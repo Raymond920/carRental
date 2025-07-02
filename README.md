@@ -47,69 +47,69 @@ This project consists of the following main components:
 - SQLite
 - JWT Authentication
 
-## 📱 Features Preview
+## Features Preview
 
-### 🔐 Login  
+### Login  
 Authenticate with email and password.  
 ![Login](https://github.com/user-attachments/assets/acbc575d-698e-4885-bdf7-a17941565f7c)
 
 ---
 
-### 🚗 Car List  
+### Car List  
 Browse available cars by category.  
 ![Car List](https://github.com/user-attachments/assets/457c5eda-e421-4556-bf39-617b331c1607)
 
 ---
 
-### 💬 Live Chat  
+### Live Chat  
 Real-time chat with car owners.  
 ![Chat](https://github.com/user-attachments/assets/23412028-d63f-4e81-b421-4ca2f0a3f564)
 
 ---
 
-### 📆 Booking  
+### Booking  
 Select dates and book your car instantly.  
 ![Booking](https://github.com/user-attachments/assets/528eba8c-cd98-4f5c-83dc-684b75e25020)
 
 ---
 
-### 🧾 Booking History  
+### Booking History  
 View past booking details.  
 ![Booking History](https://github.com/user-attachments/assets/7b9a98e7-ed68-4e00-beb0-08a1feb5203c)
 
 ---
 
-### 🗂️ Chat History  
+### Chat History  
 Access previous conversations.  
 ![Chat History](https://github.com/user-attachments/assets/9d76657a-85e6-4629-8ab4-de05be19eb20)
 
 ---
 
-### 🌙 Dark Theme  
+### Dark Theme  
 Optional dark mode for night use.  
 ![Dark Theme](https://github.com/user-attachments/assets/c1c3eb6b-fb2c-47c3-849d-0600766b6c91)
 
 ---
 
-### 📤 Car Listing  
+### Car Listing  
 Post your own vehicle for rental.  
 ![Car Listing](https://github.com/user-attachments/assets/df4a16c9-a2dd-49ee-8e82-ce71d79490dd)
 
 ---
 
-### ✏️ Update Car Detail  
-Edit existing vehicle information.  
+### Update Car Detail  
+Edit your listed vehicle information.  
 ![Update Car](https://github.com/user-attachments/assets/591b32af-c2b7-4171-a3b2-72a4e012a4ca)
 
 ---
 
-### ❌ Delete Car Listing  
+### Delete Car Listing  
 Remove your listed vehicle.  
 ![Delete Car](https://github.com/user-attachments/assets/e86e8888-e2bf-464b-b4a9-9c57d4cae370)
 
 ---
 
-### 🚪 Logout  
+### Logout  
 End session and return to login screen.  
 ![Logout](https://github.com/user-attachments/assets/38ffd208-4bdd-4c54-afc0-8bc846fc66e7)
 
